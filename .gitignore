@@ -1,0 +1,7 @@
+/work/
+/distfiles/
+/packages/
+/target/
+/pkgsrc/devel/codex/work/
+*.core
+
