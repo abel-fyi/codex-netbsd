@@ -1,0 +1,28 @@
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -422,7 +422,7 @@
+ memchr = "2.7.6"
+ mime_guess = "2.0.5"
+ multimap = "0.10.0"
+-mxc-sdk = { git = "https://github.com/microsoft/mxc", rev = "b21120168d70befe12356411423266bfef168446" }
++mxc-sdk = { path = "../mxc-b21120168d70befe12356411423266bfef168446/src/mxc-sdk" }
+ notify = "8.2.0"
+ nucleo = { git = "https://github.com/helix-editor/nucleo.git", rev = "4253de9faabb4e5c6d81d946a5e35a90f87347ee" }
+ once_cell = "1.20.2"
+@@ -457,8 +457,8 @@
+ regex-lite = "0.1.8"
+ regex-syntax = "0.8.8"
+ reqwest = { version = "0.12", features = ["cookies"] }
+-rmcp = { git = "https://github.com/modelcontextprotocol/rust-sdk", rev = "98a54789b80110ad210495c4ad845c89e1980471", version = "=3.5.1", default-features = false }
+-runfiles = { git = "https://github.com/dzbarsky/rules_rust", rev = "b56cbaa8465e74127f1ea216f813cd377295ad81" }
++rmcp = { path = "../rust-sdk-98a54789b80110ad210495c4ad845c89e1980471/crates/rmcp", version = "=3.5.1", default-features = false }
++runfiles = { path = "../rules_rust-b56cbaa8465e74127f1ea216f813cd377295ad81/rust/runfiles" }
+ rustix = { version = "1.1.4", features = ["net"] }
+ rustls = { version = "0.23.46", default-features = false, features = [
+     "aws_lc_rs",
+@@ -669,5 +669,3 @@
+ # Uncomment to debug local changes.
+ # rmcp = { path = "../../rust-sdk/crates/rmcp" }
+ 
+-[patch."ssh://git@github.com/openai-oss-forks/tungstenite-rs.git"]
+-tungstenite = { git = "https://github.com/openai-oss-forks/tungstenite-rs", rev = "4fffad30fe373adbdcffab9545e9e9bf4f2fc19f" }

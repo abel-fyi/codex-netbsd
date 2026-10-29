@@ -5,3 +5,5 @@
 /pkgsrc/devel/codex/work/
 *.core
 
+
+.work/

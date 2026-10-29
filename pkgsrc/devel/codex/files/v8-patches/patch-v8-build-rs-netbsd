@@ -1,0 +1,24 @@
+--- a/build.rs
++++ b/build.rs
+@@ -387,7 +387,9 @@
+     download_ninja_gn_binaries();
+   }
+ 
+-  download_rust_toolchain();
++  if env::var("CARGO_CFG_TARGET_OS").unwrap() != "netbsd" {
++    download_rust_toolchain();
++  }
+ 
+   // `#[cfg(...)]` attributes don't work as expected from build.rs -- they refer to the configuration
+   // of the host system which the build.rs script will be running on. In short, `cfg!(target_<os/arch>)`
+@@ -410,6 +412,10 @@
+     env::var("CARGO_FEATURE_USE_CUSTOM_LIBCXX").is_ok()
+   ));
+ 
++  if target_os == "netbsd" {
++    gn_args.push("use_custom_libunwind=true".to_string());
++  }
++
+   let extra_args = {
+     if env::var("CARGO_FEATURE_V8_ENABLE_SANDBOX").is_ok() {
+       vec![

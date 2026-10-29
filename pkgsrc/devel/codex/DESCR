@@ -1,0 +1,2 @@
+Codex CLI is OpenAI's coding agent for the terminal. This NetBSD package
+includes the command-line client and its V8-backed Code Mode host.

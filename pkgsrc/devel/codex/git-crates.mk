@@ -1,0 +1,9 @@
+# Pinned Git dependencies from Codex 0.164.0 Cargo.lock.
+CARGO_GITHUB_CRATES+=	openai-oss-forks crossterm ed1cdab335221515706178d68495bba2aed1924f
+CARGO_GITHUB_CRATES+=	openai-oss-forks tokio-tungstenite 0e5b2d73aa18dd9f0a50ee9ff199d5aef7594186
+CARGO_GITHUB_CRATES+=	openai-oss-forks tungstenite-rs 4fffad30fe373adbdcffab9545e9e9bf4f2fc19f
+CARGO_GITHUB_CRATES+=	helix-editor nucleo 4253de9faabb4e5c6d81d946a5e35a90f87347ee
+CARGO_GITHUB_CRATES+=	modelcontextprotocol rust-sdk 98a54789b80110ad210495c4ad845c89e1980471
+CARGO_GITHUB_CRATES+=	dzbarsky rules_rust b56cbaa8465e74127f1ea216f813cd377295ad81
+CARGO_GITHUB_CRATES+=	microsoft mxc b21120168d70befe12356411423266bfef168446
+CARGO_GITHUB_CRATES+=	hyperium h3 e07e69412876f7e26f026bd75a48b2704d8c8283

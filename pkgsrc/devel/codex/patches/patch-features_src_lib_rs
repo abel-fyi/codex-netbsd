@@ -1,0 +1,15 @@
+# $NetBSD$
+
+Disable daemon autostart by default; source builds do not include a managed
+Codex package for the background daemon to install.
+
+--- a/features/src/lib.rs
++++ b/features/src/lib.rs
+@@ -1055,7 +1055,7 @@ pub const FEATURES: &[FeatureSpec] = &[
+         id: Feature::DaemonAutoStart,
+         key: "daemon_auto_start",
+         stage: Stage::Stable,
+-        default_enabled: true,
++        default_enabled: false,
+     },
+     FeatureSpec {

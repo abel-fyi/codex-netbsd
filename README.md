@@ -1,34 +1,18 @@
 # Codex for NetBSD
 
-This repository is the working area for packaging OpenAI Codex CLI 0.164.0 for
-NetBSD with pkgsrc. It is separate from the OpenBSD port because the build
-framework, operating-system patches, dependencies, and package metadata differ.
+This repository contains NetBSD-specific packaging work for Codex CLI 0.164.0 on NetBSD 11/amd64.
 
-**Status: blueprint only. This is not yet a buildable pkgsrc package.** The
-first target is NetBSD/amd64. Builds and runtime checks must run on NetBSD; a
-Mac can host Codex and connect to the NetBSD machine over SSH to edit and drive
-the work.
+**Status:** The CLI, V8-backed Code Mode host, and logs helper are built and staged. CLI startup, sibling-host discovery, and V8 JavaScript through the app server passed. The daemon-autostart default patch is applied to source, but its CLI rebuild was intentionally interrupted; use codex --no-daemon with the current executable. The pkgsrc recipe has not been tested in a complete pkgsrc checkout.
 
-## Starting point
+## Build and verification
 
-The NetBSD pkgsrc-wip repository contains an earlier Codex package recipe for
-0.91.0. Use it as a packaging reference, not as a ready-made port for 0.164.0:
+Source checkout and release binaries are under .work/codex-source/codex-rust-v0.164.0/codex-rs/target/release/.
 
-- [pkgsrc-wip Codex Makefile](https://raw.githubusercontent.com/NetBSD/pkgsrc-wip/master/codex/Makefile)
-- [NetBSD pkgsrc developer guide](https://www.netbsd.org/docs/pkgsrc/pkgsrc.html)
-- [Codex upstream 0.164.0 source tag](https://github.com/openai/codex/tree/rust-v0.164.0)
+- porting/build-code-mode-host.sh builds Codex and the V8-backed host.
+- porting/build-logs-client.sh builds logs_client.
+- porting/run-netbsd-verification.sh runs CLI and Code Mode checks.
+- porting/stage-netbsd-install.sh stages binaries, completions, and docs under .work/stage/usr/pkg.
 
-The OpenBSD port is useful for identifying upstream patches and build
-dependencies. Its OpenBSD-specific V8 changes must not be copied blindly.
+Keep codex and codex-code-mode-host together in the same bin directory. V8 JIT requires NetBSD PaX MPROTECT to be disabled on the host; the build and staging helpers apply paxctl +m.
 
-## First steps on the NetBSD host
-
-Capture the target system details using the commands in
-[`docs/NETBSD-DISCOVERY.md`](docs/NETBSD-DISCOVERY.md). Then inspect the
-pkgsrc-wip recipe and compare its Rust, Clang/libclang, CMake, OpenSSL, and
-Cargo dependency requirements with the target's pkgsrc tree and binary
-packages.
-
-See [`docs/PORTING-PLAN.md`](docs/PORTING-PLAN.md) for the staged work and
-[`docs/PACKAGE-LAYOUT.md`](docs/PACKAGE-LAYOUT.md) for the pkgsrc files this
-port will need.
+See docs/NETBSD-BUILD-STATUS.md for artifact paths, runtime requirements, test results, and remaining work. NetBSD patches are in porting/ and pkgsrc/devel/codex/.
