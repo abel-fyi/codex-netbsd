@@ -1,0 +1,51 @@
+BUILD CODEX ON NETBSD
+
+Target: NetBSD 11/amd64.
+
+NEEDS
+
+Install the pkgsrc tools listed in pkgsrc/devel/codex/Makefile.
+The build also needs Git, doas, and an internet connection.
+Keep 50 GB free for build files, plus space for temporary swap.
+A tested 8 GB RAM system needed an extra 16 GB to build V8.
+
+Install the main tools with:
+
+  doas pkgin install rust-bin clang cmake ninja-build protobuf \
+    sqlite3 openssl python313 pkgconf patchelf git-base ripgrep bmake
+
+The build needs an 8 GB data-size limit. Its default uses four
+Cargo and Ninja jobs.
+
+TEMPORARY SWAP
+
+If your system has limited memory, create and enable a 16 GB
+swap file before building:
+
+  mkdir -p .work
+  dd if=/dev/zero of=.work/netbsd-build.swap bs=1m count=16384
+  chmod 600 .work/netbsd-build.swap
+  doas /sbin/swapctl -a "$PWD/.work/netbsd-build.swap"
+
+After the build, disable it and remove the file:
+
+  doas /sbin/swapctl -d "$PWD/.work/netbsd-build.swap"
+  unlink .work/netbsd-build.swap
+
+BUILD AND INSTALL
+
+Run the complete build, stage, and verification sequence with:
+
+  sh porting/build-netbsd.sh
+
+The script keeps source, Cargo downloads, object files, logs,
+and staged binaries under .work/. It refuses to overwrite
+existing source or staging directories.
+
+The package recipe is in pkgsrc/devel/codex/. Copy that folder
+into a complete pkgsrc tree, then run bmake install there.
+That package install has not been tested on this machine.
+
+The Code Mode host needs permission to create executable JIT
+memory. The staging script applies the required NetBSD PaX
+setting and places icudtl.dat beside the CLI and host.
